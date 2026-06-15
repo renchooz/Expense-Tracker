@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: "Server is healthy",
+    message: "Server is healthy up and running",
   });
 });
 
