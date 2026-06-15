@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
+import { FinanceProvider } from "./context/FinanceContext";
 import App from "./App";
 import "./index.css";
 
@@ -10,7 +11,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <FinanceProvider>
         <App />
+        </FinanceProvider>
         <Toaster position="top-right" />
       </AuthProvider>
     </BrowserRouter>
