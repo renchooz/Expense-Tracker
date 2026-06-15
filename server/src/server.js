@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.get("/api/health", (req, res) => {
     message: "Server is healthy",
   });
 });
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
