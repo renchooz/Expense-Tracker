@@ -24,10 +24,8 @@ A full-stack personal finance dashboard for tracking income, expenses, and spend
 
 ```
 Mini Fintech Dashboard/
-├── client/          # React frontend (Vite)
-├── server/          # Express API
-├── nginx/           # Nginx config for Docker web service
-├── Dockerfile       # Multi-stage build (client, server, web)
+├── client/          # React frontend (Vite) + Dockerfile + nginx.conf
+├── server/          # Express API + Dockerfile
 ├── docker-compose.yml
 └── README.md
 ```
@@ -142,11 +140,12 @@ docker compose down -v
 
 ### Docker architecture
 
-The multi-stage `Dockerfile` builds three targets:
+Each service has its own multi-stage Dockerfile:
 
-1. **client-build** — builds the React app with Vite
-2. **server** — runs the Express API
-3. **web** — serves the built frontend via Nginx and proxies `/api` to the backend
+- **`client/Dockerfile`** — builds the React app, then serves it with Nginx (proxies `/api` to the backend)
+- **`server/Dockerfile`** — installs production dependencies and runs the Express API
+
+`docker-compose.yml` orchestrates MongoDB, the API, and the web frontend together.
 
 ---
 
