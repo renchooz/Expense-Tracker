@@ -36,7 +36,7 @@ Choose one setup path:
 
 **Local development**
 - Node.js 20+
-- MongoDB running locally (default: `mongodb://127.0.0.1:27017`)
+
 
 **Docker**
 - Docker Desktop (or Docker Engine + Docker Compose)
@@ -64,7 +64,7 @@ Update `server/.env` if needed:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017
+MONGO_URI=
 JWT_SECRET=your-super-secret-jwt-key
 CLIENT_URL=http://localhost:5173
 ```

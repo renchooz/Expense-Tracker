@@ -128,97 +128,154 @@ const Transactions = () => {
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[850px]">
-              <thead className="bg-slate-100">
-                <tr>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Category
-                  </th>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Type
-                  </th>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Amount
-                  </th>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Date
-                  </th>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Note
-                  </th>
-                  <th className="text-left px-6 py-4 text-slate-600">
-                    Action
-                  </th>
-                </tr>
-              </thead>
 
-              <tbody>
-                {transactions?.length > 0 ? (
-                  transactions.map((transaction) => (
-                    <tr
-                      key={transaction._id}
-                      className="border-t border-slate-100 hover:bg-violet-50/50 transition"
-                    >
-                      <td className="px-6 py-5 font-semibold text-slate-800">
-                        {transaction.category}
-                      </td>
+  {/* Desktop Table */}
+  <div className="hidden md:block overflow-x-auto">
+    <table className="w-full min-w-[850px]">
+      <thead className="bg-slate-100">
+        <tr>
+          <th className="text-left px-6 py-4 text-slate-600">Category</th>
+          <th className="text-left px-6 py-4 text-slate-600">Type</th>
+          <th className="text-left px-6 py-4 text-slate-600">Amount</th>
+          <th className="text-left px-6 py-4 text-slate-600">Date</th>
+          <th className="text-left px-6 py-4 text-slate-600">Note</th>
+          <th className="text-left px-6 py-4 text-slate-600">Action</th>
+        </tr>
+      </thead>
 
-                      <td className="px-6 py-5">
-                        <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${
-                            transaction.type === "income"
-                              ? "bg-green-100 text-green-600"
-                              : "bg-red-100 text-red-600"
-                          }`}
-                        >
-                          {transaction.type}
-                        </span>
-                      </td>
+      <tbody>
+        {transactions?.length > 0 ? (
+          transactions.map((transaction) => (
+            <tr
+              key={transaction._id}
+              className="border-t border-slate-100 hover:bg-violet-50/50 transition"
+            >
+              <td className="px-6 py-5 font-semibold text-slate-800">
+                {transaction.category}
+              </td>
 
-                      <td
-                        className={`px-6 py-5 font-bold ${
-                          transaction.type === "income"
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
-                      >
-                        {transaction.type === "income" ? "+" : "-"}
-                        {formatCurrency(transaction.amount)}
-                      </td>
+              <td className="px-6 py-5">
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${
+                    transaction.type === "income"
+                      ? "bg-green-100 text-green-600"
+                      : "bg-red-100 text-red-600"
+                  }`}
+                >
+                  {transaction.type}
+                </span>
+              </td>
 
-                      <td className="px-6 py-5 text-slate-600">
-                        {new Date(transaction.date).toLocaleDateString("en-IN")}
-                      </td>
+              <td
+                className={`px-6 py-5 font-bold ${
+                  transaction.type === "income"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {transaction.type === "income" ? "+" : "-"}
+                {formatCurrency(transaction.amount)}
+              </td>
 
-                      <td className="px-6 py-5 text-slate-600">
-                        {transaction.note || "-"}
-                      </td>
+              <td className="px-6 py-5 text-slate-600">
+                {new Date(transaction.date).toLocaleDateString("en-IN")}
+              </td>
 
-                      <td className="px-6 py-5">
-                        <button
-                          onClick={() => deleteTransaction(transaction._id)}
-                          className="bg-red-50 text-red-500 px-4 py-2 rounded-xl font-semibold hover:bg-red-100 transition"
-                        >
-                          🗑 Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan="6"
-                      className="text-center py-14 text-slate-400"
-                    >
-                      No transactions found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+              <td className="px-6 py-5 text-slate-600">
+                {transaction.note || "-"}
+              </td>
+
+              <td className="px-6 py-5">
+                <button
+                  onClick={() => deleteTransaction(transaction._id)}
+                  className="bg-red-50 text-red-500 px-4 py-2 rounded-xl font-semibold hover:bg-red-100 transition"
+                >
+                  🗑 Delete
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan="6"
+              className="text-center py-14 text-slate-400"
+            >
+              No transactions found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Mobile View */}
+  <div className="md:hidden p-4 space-y-4">
+    {transactions?.length > 0 ? (
+      transactions.map((transaction) => (
+        <div
+          key={transaction._id}
+          className="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm"
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="font-bold text-slate-800">
+                {transaction.category}
+              </h3>
+
+              <p className="text-xs text-slate-400 mt-1">
+                {new Date(transaction.date).toLocaleDateString("en-IN")}
+              </p>
+            </div>
+
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${
+                transaction.type === "income"
+                  ? "bg-green-100 text-green-600"
+                  : "bg-red-100 text-red-600"
+              }`}
+            >
+              {transaction.type}
+            </span>
           </div>
+
+          <div
+            className={`mt-4 text-2xl font-bold ${
+              transaction.type === "income"
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+          >
+            {transaction.type === "income" ? "+" : "-"}
+            {formatCurrency(transaction.amount)}
+          </div>
+
+          {transaction.note && (
+            <div className="mt-3">
+              <p className="text-xs font-medium text-slate-400">
+                Note
+              </p>
+              <p className="text-sm text-slate-600 mt-1">
+                {transaction.note}
+              </p>
+            </div>
+          )}
+
+          <button
+            onClick={() => deleteTransaction(transaction._id)}
+            className="w-full mt-4 bg-red-50 text-red-500 py-3 rounded-xl font-semibold hover:bg-red-100 transition"
+          >
+            🗑 Delete Transaction
+          </button>
         </div>
+      ))
+    ) : (
+      <div className="text-center py-10 text-slate-400">
+        No transactions found.
+      </div>
+    )}
+  </div>
+</div>
       </main>
     </div>
   );
