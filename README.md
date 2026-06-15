@@ -49,7 +49,7 @@ Choose one setup path:
 
 ```bash
 git clone <repository-url>
-cd "Mini Fintech Dashboard"
+cd "Expense Tracker"
 ```
 
 ### 2. Configure environment variables
